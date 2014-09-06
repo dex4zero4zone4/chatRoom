@@ -1,0 +1,37 @@
+body
+{
+	background-color: #FFFF00;
+	border-style: 20px double #000;
+	border-color: #FE2E2E;
+}
+#test
+{
+	font-style: italic;
+	margin: 100px auto 100px auto;
+	text-align: center;
+	background-color: #CCC;
+	width: 330px;
+	height: 300px;
+	border: 5px ridge #000;
+	border-color: #FE2E2E
+}
+#chatBox
+{
+	margin: 0px auto 0px auto;
+	text-align: left;
+	background-color: #CCC;
+	width: 550px;
+	height: 500px;
+	border: 10px ridge #000;
+	border-color: #FE2E2E
+}
+#users
+{
+	margin: 0px auto 100px auto;
+	text-align: center;
+	background-color: #CCC;
+	width: 550px;
+	height: 500px;
+	border: 10px ridge #000;
+	border-color: #FE2E2E
+}

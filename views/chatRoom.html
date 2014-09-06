@@ -1,0 +1,59 @@
+<!--
+Evan Preisler - dex4zero4zone4
+NUI Galway chat room
+twitter @dex4zero4zone4
+2014
+-->
+<div id="users">
+<p><a href="/homePage">Home Page</a> ~ <a href="/show">Show Users</a> ~ <a href="/logOut">Log Out</a></p>
+	<script src='//code.jquery.com/jquery-1.7.2.min.js'></script>
+	<script src='http://<!--your web address-->:<!--port number-->/socket.io/lib/socket.io.js'></script>
+<p>
+	<ul id='messages'></ul>
+	Name: {{test.name}} {{test.surname}}
+</p>
+<body>
+<div id="msgWindow" style="width: 500px; height: 300px; margin: 1px 0 10px 0; border: solid 1px #999; overflow-y: scroll;">
+</div>
+
+<div class="controls">
+	<input id="msgTxt" style="width:452px;">
+	<input id="sendBtn" type="button" value="send">
+</div>
+</body>
+<script>
+	window.onload = function(){
+		var sendButton = document.getElementById("sendBtn");
+		var messageWindow = document.getElementById("msgWindow");
+		var messageText = document.getElementById("msgTxt");
+		var socket = io.connect('//<!--your web address-->:<!--port number-->');
+		socket.on('welcome', function(data){
+			$('#messages').append(data.message);
+			socket.emit('rightBack', {data: 'back to you Tom.'});
+		});
+
+		sendButton.onclick = function(){
+			sendMessage();
+		}
+
+		messageText.onkeyup= function(event){
+			if(event.keyCode==13) sendMessage();
+		}
+
+		function sendMessage (){
+			if(messageText.value==""){	
+				alert("No one likes a silent sally");
+			}else{
+				socket.emit('sendMessage', {message: messageText.value, email: '{{test.email}}'});
+				messageText.value="";
+			}
+		}
+
+		socket.on('messageChat', function(data){
+			messageWindow.innerHTML +='<b>'+data.chat.name+': </b>'+data.chat.message+'<br/>';
+			messageWindow.scrollTop =messageWindow.scrollHeight;
+		});
+			
+	}
+</script>
+</div>

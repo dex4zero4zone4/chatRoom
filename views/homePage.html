@@ -1,0 +1,35 @@
+<!--
+Evan Preisler - dex4zero4zone4
+NUI Galway chat room
+twitter @dex4zero4zone4
+2014
+-->
+<div id="users">
+<p><a href="/chatRoom">Chat Room</a> ~ <a href="/show">Show Users</a> ~ <a href="/logOut">Log Out</a></p>
+<script src='//code.jquery.com/jquery-1.7.2.min.js'></script>
+<script src='http://<!--your web address-->:<!--port number-->/socket.io/lib/socket.io.js'></script>
+<h3>You have logged in</h3>
+<p>
+	Name: {{dog.name}} {{dog.surname}}<br/>
+	Email: {{dog.email}}<br/>
+</p>
+<h3>Other Online Users:<h3>
+<ul id='online'></ul>
+<script>
+var onlineUser ='';
+	window.onload = function(){
+		var socket = io.connect('//<!--your web address-->:<!--port number-->');
+		socket.emit('userOnline', {userEmail: '{{dog.email}}'});
+		socket.on('checkOnline', function(data){
+			for(var i=0; i<data.onlineTable.length; i++){
+				onlineUser += '<b>'+data.onlineTable[i].name+' '+data.onlineTable[i].surname+': </b>'+data.onlineTable[i].email+'<br/>';	
+			}
+			if(onlineUser==''){
+				$('#online').append("No one is online");
+			}else{
+				$('#online').append(onlineUser);
+			}
+		});
+	}
+</script>
+</div>
